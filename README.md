@@ -63,6 +63,7 @@ Each commit should look like:
 "Write tests for <lesson>_<section>_<useCase>_<date> as <fileName>"
 "Results for <lesson>_<section>_<useCase>_<date> as <fileName>"
 "Update README.md for <lesson>_<section>_<useCase>_<date>"
+"Update README.md with Introductory information corrections"
 
 ...with other relevant commits in between. It is better to be relevant than to be adherent to the above rules. Break them as necessary.
 
