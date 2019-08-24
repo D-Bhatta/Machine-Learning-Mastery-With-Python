@@ -64,7 +64,7 @@ Each commit should look like:
 "Results for <lesson>_<section>_<useCase>_<date> as <fileName>"
 "Update README.md for <lesson>_<section>_<useCase>_<date>"
 
-with other relevant commits in between
+...with other relevant commits in between. It is better to be relevant than to be adherent to the above rules. Break them as necessary.
 
 
 This project will enable me to do the following:
@@ -80,7 +80,7 @@ on the data and select the top few to investigate further.
 well-performing algorithms on your data.
 6. Present Results: Finalize the model, make predictions and present results.
 
-README.md should have all the relevant information laid out. They should be then used to update the resume and portfolio.
+README.md should have all the relevant information laid out. They should be then used to update the resume and portfolio. It is 
 
 _____________________________________________________________________________________________________________________
 
