@@ -87,3 +87,14 @@ ________________________________________________________________________________
 
 
 BEGIN LESSON 1:
+Lesson name: "Python Ecosystem for Machine Learning", Page:18/179
+
+Relevant Links:
+ https://realpython.com/python-windows-machine-learning-setup/#introducing-anaconda-and-conda
+
+ Create a python environment in Anaconda 3:
+
+ conda env create -f environment.yml
+
+ Completed Lesson 1
+ 
