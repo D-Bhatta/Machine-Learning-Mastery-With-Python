@@ -1,0 +1,13 @@
+# The name of the environment matching the repository name
+name: MLMWP
+
+# Start with Python and include everything you need
+dependencies:
+- python
+- numpy
+- scipy
+- matplotlib
+- pandas
+- scikit-learn
+- pip
+- Pytest
