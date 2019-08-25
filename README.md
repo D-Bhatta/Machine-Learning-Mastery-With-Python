@@ -105,3 +105,6 @@ ________________________________________________________________________________
 
 BEGIN LESSOM 2:
 Lesson name: "Crash Course in Python and SciPy"
+Completed Lesson 2
+
+Written tests for Lesson 2
