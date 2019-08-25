@@ -98,3 +98,10 @@ Relevant Links:
 
  Completed Lesson 1
  
+
+
+_____________________________________________________________________________________________________________________
+
+
+BEGIN LESSOM 2:
+Lesson name: "Crash Course in Python and SciPy"
