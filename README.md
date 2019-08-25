@@ -24,7 +24,7 @@ Lesson 14: Ensemble Methods. (Improve Results)
 Lesson 15: Algorithm Parameter Tuning. (Improve Results)
 Lesson 16: Model Finalization. (Present Results)
 
-Each Lesson will have a folder for itself. Within that will be the code, documents, screenshots, tests, etc. for all the activities of the lesson. Each Lesson file should have the lesson number followed by date in a comment at the top of the file.
+Each Lesson will have a folder for itself. Within that will be the code, documents, screenshots, tests, etc. for all the activities of the lesson. Each Lesson file should have the lesson number followed by page number in a comment at the top of the file.
 
 Part III
 Contains the activities from the 3 projects therein
