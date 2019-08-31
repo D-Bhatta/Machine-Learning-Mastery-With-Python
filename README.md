@@ -103,8 +103,19 @@ Relevant Links:
 _____________________________________________________________________________________________________________________
 
 
-BEGIN LESSOM 2:
+BEGIN LESSON 2:
 Lesson name: "Crash Course in Python and SciPy"
 Completed Lesson 2
 
 Written tests for Lesson 2
+
+
+_____________________________________________________________________________________________________________________
+
+BEGIN LESSON 3:
+Lesson name: "How To Load Machine Learning Data"
+
+Completed Lesson 3
+Written tests for Lesson 3
+
+_____________________________________________________________________________________________________________________
