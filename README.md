@@ -119,3 +119,11 @@ Completed Lesson 3
 Written tests for Lesson 3
 
 _____________________________________________________________________________________________________________________
+
+BEGIN LESSON $:
+Lesson name: "Understand Your Data With Descriptive Statistics"
+
+Completed Lesson 4
+Written tests for Lesson 4
+
+_____________________________________________________________________________________________________________________
