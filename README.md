@@ -120,10 +120,18 @@ Written tests for Lesson 3
 
 _____________________________________________________________________________________________________________________
 
-BEGIN LESSON $:
+BEGIN LESSON 4:
 Lesson name: "Understand Your Data With Descriptive Statistics"
 
 Completed Lesson 4
 Written tests for Lesson 4
+
+_____________________________________________________________________________________________________________________
+
+BEGIN LESSON 5:
+Lesson name: "Understand Your Data With Visualization"
+
+Completed Lesson 5
+Written tests for Lesson 5
 
 _____________________________________________________________________________________________________________________
