@@ -135,3 +135,11 @@ Completed Lesson 5
 Written tests for Lesson 5
 
 _____________________________________________________________________________________________________________________
+
+BEGIN LESSON 6:
+Lesson Name: "Prepare Your Data For Machine Learning"
+
+Completed Lesson 6
+Written tests for Lesson 6
+
+_____________________________________________________________________________________________________________________
