@@ -143,3 +143,11 @@ Completed Lesson 6
 Written tests for Lesson 6
 
 _____________________________________________________________________________________________________________________
+
+BEGIN LESSON 7:
+Lesson Name: "Feature Selection For Machine Learning"
+
+Completed Lesson 7
+Written tests for Lesson 7
+
+_____________________________________________________________________________________________________________________
