@@ -6,12 +6,12 @@ import os
 from pandas import read_csv
 from numpy import set_printoptions
 
-os.chdir("J:\Education\Code\DATA_Science\Books\Jason_Brownlee\Machine-Learning-Mastery-With-Python\Part_II\Lesson6")
+os.chdir("J:\Education\Code\DATA_Science\Books\Jason_Brownlee\Machine-Learning-Mastery-With-Python\Part_II\Lesson7")
 
 def load_data():
     filename = "pima-indians-diabetes.data.csv"
     names = ['preg', 'plas', 'pres', 'skin', 'test' , 'mass', 'pedi', 'age', 'class']
-    dataframe = read_csv(filename, names)
+    dataframe = read_csv(filename, names = names)
     array = dataframe.values
     return array
 
@@ -29,9 +29,9 @@ def select_k_best():
     fit = test.fit(x,y)
     #summarize scores
     return_this = []
-    return_this.append(fit.scores_)
+    return_this.append(list(fit.scores_))
     features = fit.transform(x)
-    return_this.append(features[0:5,:])
+    return_this.append(str(features[0:5,:]))
     return return_this
 
 def recursive_feature_elimination():
@@ -81,4 +81,4 @@ def extra_trees():
     from sklearn.ensemble import ExtraTreesClassifier
     model = ExtraTreesClassifier()
     model.fit(x,y)
-    return model.feature_importances_
+    return list(model.feature_importances_)
