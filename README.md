@@ -151,3 +151,12 @@ Completed Lesson 7
 Written tests for Lesson 7
 
 _____________________________________________________________________________________________________________________
+
+BEGIN LESSON 8:
+Lesson Name: "Evaluate the Performance of Machine Learning Algorithms with Resampling"
+
+Completed Lesson 8
+Written tests for Lesson 8
+
+_____________________________________________________________________________________________________________________
+
