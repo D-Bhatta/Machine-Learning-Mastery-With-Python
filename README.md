@@ -156,3 +156,8 @@ ________________________________________________________________________________
 
 BEGIN LESSON 9:
 Lesson Name: "Machine Learning Algorithm Performance Metrics"
+
+Completed Lesson 9
+Written tests for Lesson 9
+
+_____________________________________________________________________________________________________________________
