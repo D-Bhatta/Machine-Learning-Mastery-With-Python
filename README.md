@@ -169,3 +169,11 @@ Completed Lesson 10
 Written Tests for Lesson 10
 
 _____________________________________________________________________________________________________________________
+
+BEGIN LESSON 11:
+Lesson Name: "Spot-Check Regression Algorithms"
+
+Completed Lesson 11
+Written Tests for Lesson 11
+
+_____________________________________________________________________________________________________________________
