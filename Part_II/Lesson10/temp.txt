@@ -1,0 +1,165 @@
+
+(base) C:\Users\DB>cd j:
+J:\
+
+(base) C:\Users\DB>j:
+
+(base) J:\>cd J:\Education\Code\DATA_Science\Books\Jason_Brownlee\Machine-Learning-Mastery-With-Python\Part_II\Lesson10
+
+(base) J:\Education\Code\DATA_Science\Books\Jason_Brownlee\Machine-Learning-Mastery-With-Python\Part_II\Lesson10>dir
+ Volume in drive J is TOSHIBA
+ Volume Serial Number is 9ED9-F549
+
+ Directory of J:\Education\Code\DATA_Science\Books\Jason_Brownlee\Machine-Learning-Mastery-With-Python\Part_II\Lesson10
+
+10/27/2019  12:46 PM    <DIR>          .
+10/27/2019  12:46 PM    <DIR>          ..
+10/27/2019  01:40 PM             3,443 Lesson10_27_Oct_2019.py
+               1 File(s)          3,443 bytes
+               2 Dir(s)  364,131,364,864 bytes free
+
+(base) J:\Education\Code\DATA_Science\Books\Jason_Brownlee\Machine-Learning-Mastery-With-Python\Part_II\Lesson10>python Lesson10_27_Oct_2019.py
+
+(base) J:\Education\Code\DATA_Science\Books\Jason_Brownlee\Machine-Learning-Mastery-With-Python\Part_II\Lesson10>ipython
+Python 3.7.3 (default, Apr 24 2019, 15:29:51) [MSC v.1915 64 bit (AMD64)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.6.1 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: import Lesson10_27_Oct_2019 as ls
+
+In [2]: import importlib as i
+
+In [3]: i.reload(ls)
+Out[3]: <module 'Lesson10_27_Oct_2019' from 'J:\\Education\\Code\\DATA_Science\\Books\\Jason_Brownlee\\Machine-Learning-Mastery-With-Python\\Part_II\\Lesson10\\Lesson10_27_Oct_2019.py'>
+
+In [4]: ls
+Out[4]: <module 'Lesson10_27_Oct_2019' from 'J:\\Education\\Code\\DATA_Science\\Books\\Jason_Brownlee\\Machine-Learning-Mastery-With-Python\\Part_II\\Lesson10\\Lesson10_27_Oct_2019.py'>
+
+In [5]: ls.spot_check_linear_Logistic_Regression()
+---------------------------------------------------------------------------
+FileNotFoundError                         Traceback (most recent call last)
+<ipython-input-5-5a3f8a7de116> in <module>
+----> 1 ls.spot_check_linear_Logistic_Regression()
+
+J:\Education\Code\DATA_Science\Books\Jason_Brownlee\Machine-Learning-Mastery-With-Python\Part_II\Lesson10\Lesson10_27_Oct_2019.py in spot_check_linear_Logistic_Regression()
+     24     from sklearn.model_selection import cross_val_score
+     25     from sklearn.linear_model import LogisticRegression
+---> 26     array = load_data_pima_indians()
+     27     x = array[:,0:8]
+     28     y = array[:,8]
+
+J:\Education\Code\DATA_Science\Books\Jason_Brownlee\Machine-Learning-Mastery-With-Python\Part_II\Lesson10\Lesson10_27_Oct_2019.py in load_data_pima_indians()
+     16     filename = "pima-indians-diabetes.data.csv"
+     17     names = ['preg', 'plas', 'pres', 'skin', 'test' , 'mass', 'pedi', 'age', 'class']
+---> 18     dataframe = read_csv(filename, names = names)
+     19     array = dataframe.values
+     20     return array
+
+C:\ProgramData\Anaconda3\lib\site-packages\pandas\io\parsers.py in parser_f(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, dialect, tupleize_cols, error_bad_lines, warn_bad_lines, delim_whitespace, low_memory, memory_map, float_precision)
+    700                     skip_blank_lines=skip_blank_lines)
+    701
+--> 702         return _read(filepath_or_buffer, kwds)
+    703
+    704     parser_f.__name__ = name
+
+C:\ProgramData\Anaconda3\lib\site-packages\pandas\io\parsers.py in _read(filepath_or_buffer, kwds)
+    427
+    428     # Create the parser.
+--> 429     parser = TextFileReader(filepath_or_buffer, **kwds)
+    430
+    431     if chunksize or iterator:
+
+C:\ProgramData\Anaconda3\lib\site-packages\pandas\io\parsers.py in __init__(self, f, engine, **kwds)
+    893             self.options['has_index_names'] = kwds['has_index_names']
+    894
+--> 895         self._make_engine(self.engine)
+    896
+    897     def close(self):
+
+C:\ProgramData\Anaconda3\lib\site-packages\pandas\io\parsers.py in _make_engine(self, engine)
+   1120     def _make_engine(self, engine='c'):
+   1121         if engine == 'c':
+-> 1122             self._engine = CParserWrapper(self.f, **self.options)
+   1123         else:
+   1124             if engine == 'python':
+
+C:\ProgramData\Anaconda3\lib\site-packages\pandas\io\parsers.py in __init__(self, src, **kwds)
+   1851         kwds['usecols'] = self.usecols
+   1852
+-> 1853         self._reader = parsers.TextReader(src, **kwds)
+   1854         self.unnamed_cols = self._reader.unnamed_cols
+   1855
+
+pandas/_libs/parsers.pyx in pandas._libs.parsers.TextReader.__cinit__()
+
+pandas/_libs/parsers.pyx in pandas._libs.parsers.TextReader._setup_parser_source()
+
+FileNotFoundError: [Errno 2] File b'pima-indians-diabetes.data.csv' does not exist: b'pima-indians-diabetes.data.csv'
+
+In [6]: ls.spot_check_linear_Logistic_Regression()
+Out[6]: 0.7695146958304853
+
+In [7]: ls.spot_check_linear_LDA()
+Out[7]: 0.773462064251538
+
+In [8]: ls.spot_check_linear_Logistic_Regression()
+Out[8]: 0.7695146958304853
+
+In [9]: ls.spot_check_linear_Logistic_Regression()
+Out[9]: 0.7695146958304853
+
+In [10]: ls.spot_check_linear_LDA()
+Out[10]: 0.773462064251538
+
+In [11]: ls.spot_check_linear_LDA()
+Out[11]: 0.773462064251538
+
+In [12]: ls.spot_check_non_linear_knn()
+Out[12]: 0.7265550239234451
+
+In [13]: ls.spot_check_non_linear_knn()
+Out[13]: 0.7265550239234451
+
+In [14]: ls.spot_check_non_linear_naive_bayes()
+Out[14]: 0.7551777170198223
+
+In [15]: ls.spot_check_non_linear_naive_bayes()
+Out[15]: 0.7551777170198223
+
+In [16]: ls.spot_check_non_linear_cart()
+Out[16]: 0.704289131920711
+
+In [17]: ls.spot_check_non_linear_cart()
+Out[17]: 0.6873718386876282
+
+In [18]: ls.spot_check_non_linear_cart()
+Out[18]: 0.6926520847573479
+
+In [19]: ls.spot_check_non_linear_cart()
+Out[19]: 0.6887047163362953
+
+In [20]: ls.spot_check_non_linear_svm()
+Out[20]: 0.6510252904989747
+
+In [21]: ls.spot_check_non_linear_svm()
+Out[21]: 0.6510252904989747
+
+In [22]: ls.spot_check_non_linear_cart()
+Out[22]: 0.6847573479152427
+
+In [23]: ls.spot_check_non_linear_cart()
+Out[23]: 0.6938482570061517
+
+In [24]: ls.spot_check_non_linear_cart()
+Out[24]: 0.6900375939849624
+
+In [25]: ls.spot_check_non_linear_cart()
+Out[25]: 0.6886705399863294
+
+In [26]: ls.spot_check_non_linear_cart()
+Out[26]: 0.7069207108680794
+
+In [27]: ls.spot_check_non_linear_cart()
+Out[27]: 0.6951982228298018
+
+In [28]:               
