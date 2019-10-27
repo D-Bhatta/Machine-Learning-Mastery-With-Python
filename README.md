@@ -161,3 +161,11 @@ Completed Lesson 9
 Written tests for Lesson 9
 
 _____________________________________________________________________________________________________________________
+
+BEGIN LESSON 10:
+Lesson Name: "Spot-Check Classification Algorithms"
+
+Completed Lesson 10
+Written Tests for Lesson 10
+
+_____________________________________________________________________________________________________________________
