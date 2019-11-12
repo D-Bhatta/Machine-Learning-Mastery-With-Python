@@ -177,3 +177,11 @@ Completed Lesson 11
 Written Tests for Lesson 11
 
 _____________________________________________________________________________________________________________________
+
+BEGIN LESSON 12:
+Lesson Name: "Compare Machine Learning Algorithms"
+
+Completed Lesson 12
+Written Tests for Lesson 12
+
+_____________________________________________________________________________________________________________________
