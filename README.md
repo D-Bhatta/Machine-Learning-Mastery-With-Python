@@ -185,3 +185,11 @@ Completed Lesson 12
 Written Tests for Lesson 12
 
 _____________________________________________________________________________________________________________________
+
+BEGIN LESSON 13:
+Lesson Name: "Automate Machine Learning Workflows with Pipelines"
+
+Completed Lesson 13
+Written Tests for Lesson 13
+
+_____________________________________________________________________________________________________________________
