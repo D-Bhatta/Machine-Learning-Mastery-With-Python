@@ -20,3 +20,38 @@ def load_data():
     x = array[:,0:8]
     y = array[:,8]
     return (x,y)
+    
+def finalize_pickle():
+    x,y = load_data()
+    from sklearn.model_selection import train_test_split
+    x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.33,random_state=7)
+    from sklearn.linear_model import LogisticRegression
+    model = LogisticRegression()
+    model.fit(x_train,y_train)
+
+    filename = 'finalized_pickle_model.sav'
+
+    from pickle import dump
+
+    dump(model, open(filename,'wb'))
+
+    from pickle import load
+    loaded_model = load(open(filename, 'rb'))
+    result = loaded_model.score(x_test,y_test)
+    return result
+
+def finalize_joblib():
+    x,y = load_data()
+    from sklearn.model_selection import train_test_split
+    x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.33,random_state=7)
+    from sklearn.linear_model import LogisticRegression
+    model = LogisticRegression()
+    model.fit(x_train,y_train)
+    filename = 'finalized_joblib_model.sav'
+    from joblib import dump
+    dump(model, filename)
+    from joblib import load
+    loaded_model = load(filename)
+
+    result = loaded_model.score(x_test,y_test)
+    return result
