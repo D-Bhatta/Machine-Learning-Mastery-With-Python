@@ -207,6 +207,14 @@ BEGIN LESSON 15:
 Lesson Name: "Improve Performance with Algorithm Tuning"
 
 Completed Lesson 15
-Written tests for lesson 15
+Written tests for Lesson 15
+
+_____________________________________________________________________________________________________________________
+
+BEGIN LESSON 16:
+Lesson Name: "Save and Load Machine Learning Models"
+
+Completed Lesson 16
+Written tests for Lesson 16
 
 _____________________________________________________________________________________________________________________
