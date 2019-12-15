@@ -202,3 +202,11 @@ Completed Lesson 14
 Written Tests for Lesson 13
 
 _____________________________________________________________________________________________________________________
+
+BEGIN LESSON 15:
+Lesson Name: "Improve Performance with Algorithm Tuning"
+
+Completed Lesson 15
+Written tests for lesson 15
+
+_____________________________________________________________________________________________________________________
