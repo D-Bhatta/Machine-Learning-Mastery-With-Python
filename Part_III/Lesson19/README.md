@@ -1,4 +1,4 @@
-# Irirs Flowers Dataset Classification
+# Iris Flowers Dataset Classification
 
 This repository hosts the code, tests, documentation and pipelined model for the analysis undertaken of the iris flowers dataset.
 
@@ -6,21 +6,21 @@ This repository hosts the code, tests, documentation and pipelined model for the
 
 The repository is hosted at [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/)
 
-The data set is umltivariate and contains ratio(numerical) and nominal data.
+The data set is multivariate and contains ratio(numerical) and nominal data.
 There are 150 instances and 4 attributes.
 
 ## Project Steps
 
-1. [ ] Data Download
+1. [x] Data Download
 2. [ ] Data Loading
 3. [ ] Data Summarization
 4. [ ] Data Visualization
 5. [ ] Partitioning of dataset into Training dataset and Validation dataset
 6. [ ] Model Creation
-7. [ ] Model Seletion
+7. [ ] Model Selection
    - [ ] Create test harness using K-Fold Cross Validation, with scoring set to 'accuracy'
    - [ ] Evaluation of models using test harness
-   - [ ] Summarization, Visualization and Comparision of Results
+   - [ ] Summarization, Visualization and Comparison of Results
    - [ ] Model Selection
 8. [ ] Making Predictions using Selected Model
 9. [ ] Summarization of Results
