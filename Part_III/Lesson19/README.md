@@ -49,3 +49,7 @@ Looking at how others have approached this project and writing a report on it
 ### Tests
 
 ### Figures
+
+## Project Status
+
+Project is currently in progress.
