@@ -12,7 +12,7 @@ There are 150 instances and 4 attributes.
 ## Project Steps
 
 1. [x] Data Download
-2. [ ] Data Loading
+2. [x] Data Loading
 3. [ ] Data Summarization
 4. [ ] Data Visualization
 5. [ ] Partitioning of dataset into Training dataset and Validation dataset
