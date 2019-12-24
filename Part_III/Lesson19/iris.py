@@ -15,26 +15,41 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 # Python Project: Iris Classification
 class iris(object):
-    def __init__(self):
-        # 1. Prepare Problem: Load dataset and libraries
-        """ We will be loading 'iris.data' in a pandas dataframe and loading libraries here"""
+    # 1. Prepare Problem: Load dataset and libraries
+    def __init__(self):        
+        """ We will be loading 'iris.data' in a pandas dataframe and loading libraries and variables here"""
         # a) Load libraries above
         # b) Load dataset
-        filename = 'iris.data.csv'
+        filename = 'iris.data'
         names = ['sepal-lenght', 'sepal-width', 'petal-length', 'petal-width', 'class']
-        dataset = read_csv(filename, names=names)
+        self.dataset = read_csv(filename, names=names)
     # 2. Summarize Data
-    """ This step is about better understanding the data that you have available. This includes
-    understanding your data using
+    def summarize_iris_data(self):
+        """ This step is about better understanding the data that you have available. This includes
+        understanding your data using
 
-    - Descriptive statistics such as summaries.
-    - Data visualizations such as plots with Matplotlib, ideally using convenience functions from
-    Pandas.
+        - Descriptive statistics such as summaries.
+        - Data visualizations such as plots with Matplotlib, ideally using convenience functions from
+        Pandas.
 
-    Take your time and use the results to prompt a lot of questions, assumptions and hypotheses
-    that you can investigate later with specialized models. """
-    # a) Descriptive statistics
-    # b) Data visualizations
+        Take your time and use the results to prompt a lot of questions, assumptions and hypotheses
+        that you can investigate later with specialized models. """
+        # a) Descriptive statistics
+        shape = self.dataset.shape
+        """ We can see that there are 150 instances(or rows) and 5 attributes """
+        head = self.dataset.head(20)  
+        """ A look at the first 20 rows shows us that The data X values are of ratio(float) type and the y values are categorical and nominal """
+        statistical_summary = self.dataset.describe()
+        """ From the summary we can see that the data is of 150 count. The values lie between 0 and 8. """
+        class_distribution = self.dataset.groupby('class').size()
+        """ We can see that the class distributions are well balanced, with each of the 3 classes comprising a neat third of the dataset."""
+        print("Shape of the dataset(instance,attribute): ",shape,""" We can see that there are 150 instances(or rows) and 5 attributes """,
+        "First 20 instances: ",head,""" A look at the first 20 rows shows us that The data X values are of ratio(float) type and the y values are categorical and nominal """,
+        "Statistical summary: ",statistical_summary,""" From the summary we can see that the data is of 150 count. The values lie between 0 and 8. """,
+        "Class Distribution: ",class_distribution,""" We can see that the class distributions are well balanced, with each of the 3 classes comprising a neat third of the dataset.""",
+        sep='\n')     
+        # b) Data visualizations
+        
     # 3. Prepare Data
     """ This step is about preparing the data in such a way that it best exposes the structure of the
     problem and the relationships between your input attributes with the output variable.
@@ -85,3 +100,52 @@ class iris(object):
     - Adapt As Needed . Modify the steps as you need on a project, especially as you become
     more experienced with the template. Blur the edges of tasks, such as steps 4-5 to best
     serve model accuracy. """
+
+iris = iris()
+iris.summarize_iris_data()
+""" output:
+Shape of the dataset(instance,attribute):
+(150, 5)
+ We can see that there are 150 instances(or rows) and 5 attributes
+First 20 instances:
+    sepal-lenght  sepal-width  petal-length  petal-width        class
+0            5.1          3.5           1.4          0.2  Iris-setosa
+1            4.9          3.0           1.4          0.2  Iris-setosa
+2            4.7          3.2           1.3          0.2  Iris-setosa
+3            4.6          3.1           1.5          0.2  Iris-setosa
+4            5.0          3.6           1.4          0.2  Iris-setosa
+5            5.4          3.9           1.7          0.4  Iris-setosa
+6            4.6          3.4           1.4          0.3  Iris-setosa
+7            5.0          3.4           1.5          0.2  Iris-setosa
+8            4.4          2.9           1.4          0.2  Iris-setosa
+9            4.9          3.1           1.5          0.1  Iris-setosa
+10           5.4          3.7           1.5          0.2  Iris-setosa
+11           4.8          3.4           1.6          0.2  Iris-setosa
+12           4.8          3.0           1.4          0.1  Iris-setosa
+13           4.3          3.0           1.1          0.1  Iris-setosa
+14           5.8          4.0           1.2          0.2  Iris-setosa
+15           5.7          4.4           1.5          0.4  Iris-setosa
+16           5.4          3.9           1.3          0.4  Iris-setosa
+17           5.1          3.5           1.4          0.3  Iris-setosa
+18           5.7          3.8           1.7          0.3  Iris-setosa
+19           5.1          3.8           1.5          0.3  Iris-setosa
+ A look at the first 20 rows shows us that The data X values are of ratio(float) type and the y values are categorical and nominal
+Statistical summary:
+       sepal-lenght  sepal-width  petal-length  petal-width
+count    150.000000   150.000000    150.000000   150.000000
+mean       5.843333     3.054000      3.758667     1.198667
+std        0.828066     0.433594      1.764420     0.763161
+min        4.300000     2.000000      1.000000     0.100000
+25%        5.100000     2.800000      1.600000     0.300000
+50%        5.800000     3.000000      4.350000     1.300000
+75%        6.400000     3.300000      5.100000     1.800000
+max        7.900000     4.400000      6.900000     2.500000
+ From the summary we can see that the data is of 150 count. The values lie between 0 and 8.
+Class Distribution:
+class
+Iris-setosa        50
+Iris-versicolor    50
+Iris-virginica     50
+dtype: int64
+ We can see that the class distributions are well balanced, with each of the 3 classes comprising a neat third of the dataset.
+"""
