@@ -148,4 +148,8 @@ Iris-versicolor    50
 Iris-virginica     50
 dtype: int64
  We can see that the class distributions are well balanced, with each of the 3 classes comprising a neat third of the dataset.
+To create an accurate model of the data, we must take a good look at 
+the data and create a statistical summary of it. We now know the 
+characteristics of the data and will be able to visualize it for 
+further understanding.
 """
