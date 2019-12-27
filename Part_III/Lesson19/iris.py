@@ -24,7 +24,7 @@ class iris(object):
         names = ['sepal-lenght', 'sepal-width', 'petal-length', 'petal-width', 'class']
         self.dataset = read_csv(filename, names=names)
     # 2. Summarize Data
-    def summarize_iris_data_stats(self):
+    def summarize_iris_data(self):
         """ This step is about better understanding the data that you have available. This includes
         understanding your data using
 
@@ -35,20 +35,26 @@ class iris(object):
         Take your time and use the results to prompt a lot of questions, assumptions and hypotheses
         that you can investigate later with specialized models. """
         # a) Descriptive statistics
-        shape = self.dataset.shape
-        """ We can see that there are 150 instances(or rows) and 5 attributes """
-        head = self.dataset.head(20)  
-        """ A look at the first 20 rows shows us that The data X values are of ratio(float) type and the y values are categorical and nominal """
-        statistical_summary = self.dataset.describe()
-        """ From the summary we can see that the data is of 150 count. The values lie between 0 and 8. """
-        class_distribution = self.dataset.groupby('class').size()
-        """ We can see that the class distributions are well balanced, with each of the 3 classes comprising a neat third of the dataset."""
-        print("Shape of the dataset(instance,attribute): ",shape,""" We can see that there are 150 instances(or rows) and 5 attributes """,
-        "First 20 instances: ",head,""" A look at the first 20 rows shows us that The data X values are of ratio(float) type and the y values are categorical and nominal """,
-        "Statistical summary: ",statistical_summary,""" From the summary we can see that the data is of 150 count. The values lie between 0 and 8. """,
-        "Class Distribution: ",class_distribution,""" We can see that the class distributions are well balanced, with each of the 3 classes comprising a neat third of the dataset.""",
-        sep='\n')     
+        def summarize_iris_data_stats():         
+            shape = self.dataset.shape
+            """ We can see that there are 150 instances(or rows) and 5 attributes """
+            head = self.dataset.head(20)  
+            """ A look at the first 20 rows shows us that The data X values are of ratio(float) type and the y values are categorical and nominal """
+            statistical_summary = self.dataset.describe()
+            """ From the summary we can see that the data is of 150 count. The values lie between 0 and 8. """
+            class_distribution = self.dataset.groupby('class').size()
+            """ We can see that the class distributions are well balanced, with each of the 3 classes comprising a neat third of the dataset."""
+            print("Shape of the dataset(instance,attribute): ",shape,""" We can see that there are 150 instances(or rows) and 5 attributes """,
+            "First 20 instances: ",head,""" A look at the first 20 rows shows us that The data X values are of ratio(float) type and the y values are categorical and nominal """,
+            "Statistical summary: ",statistical_summary,""" From the summary we can see that the data is of 150 count. The values lie between 0 and 8. """,
+            "Class Distribution: ",class_distribution,""" We can see that the class distributions are well balanced, with each of the 3 classes comprising a neat third of the dataset.""",
+            sep='\n')  
+        summarize_iris_data_stats() 
         # b) Data visualizations
+        def summarize_iris_data_visualtization(): 
+            pass 
+        summarize_iris_data_visualtization()
+        
         
     # 3. Prepare Data
     """ This step is about preparing the data in such a way that it best exposes the structure of the
