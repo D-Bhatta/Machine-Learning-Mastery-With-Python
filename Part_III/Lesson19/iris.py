@@ -24,7 +24,7 @@ class iris(object):
         names = ['sepal-lenght', 'sepal-width', 'petal-length', 'petal-width', 'class']
         self.dataset = read_csv(filename, names=names)
     # 2. Summarize Data
-    def summarize_iris_data(self):
+    def summarize_iris_data_stats(self):
         """ This step is about better understanding the data that you have available. This includes
         understanding your data using
 
