@@ -26,7 +26,7 @@ class iris(object):
         self.dataset = read_csv(filename, names=names)
         self.x = []
         self.y = []
-        self.x_train, self.y_train, self.x_test, self.y_test = [],[],[],[]
+        self.x_train, self.y_train, self.x_validation, self.y_validation = [],[],[],[]
     # 2. Summarize Data
     def summarize_iris_data(self):
         """ This step is about better understanding the data that you have available. This includes
@@ -79,26 +79,24 @@ class iris(object):
             print(" Data Visualiztion & analysis\nBox and whisker\n\nSepal length\nWe can see a well balanced dataset. There is no visible skew. The max data point seems to be well above the 75% quartile.\nSepal width\nWe can see some outliers here, above the max point. There is slight skew towards the 75% quartile and, the data is probably skewed to the right.\nPetal length\nNo outliers, but the data is very much skewed towards the 25% quartile. The 75% quartile is much closer to the mean than the 25% quartile. The minimum value is quite far from the mean.\nPetal width\nAgain, the data is very much skewed towards the 25% quartile. The minimum value is quite far from the mean. \nConclusion\nPetal length and width are both on the smaller side. Values in these 2 columns are skewed to the left. Very interesting.\nIn contrast, sepal length and width are much more 'normal'.\n\nHistogram\n\nAs expected, petal length and width are both heavily skewed to the left. You could draw a diagonal line from the left to the right across the Maximas of the petal width data.\nSepal length and width assume a very broken, but still imaginable bell curve.\nOverall, the data seems very interesting.\n\nScatter matrix\n\nThere's a slight correlation between sepal length and sepal width for one of the classes. This is also the case for sepal length and petal length.\nPetal length and width also have a correlation for a part of the data.\nConclusion\nThe data has some slight correlation. ")
         summarize_iris_data_visualtization()
             
-    # 3. Prepare Data
-    def prepare_data(self):
-        """ This step is about preparing the data in such a way that it best exposes the structure of the
-        problem and the relationships between your input attributes with the output variable.
-        Start simple. Revisit this step often and cycle with the next step until you converge on a
-        subset of algorithms and a presentation of the data that results in accurate or accurate-enough
-        models to proceed. """
-        # a) Data Cleaning
-        # b) Feature Selection
-        # c) Data Transforms
-        pass
-    # 4. Evaluate Algorithms
-    """ This step is about finding a subset of machine learning algorithms that are good at exploiting
-    the structure of your data (e.g. have better than average skill).
-    On a given problem you will likely spend most of your time on this and the previous step
-    until you converge on a set of 3-to-5 well performing machine learning algorithms. """
-    # a) Split-out validation dataset
-    # b) Test options and evaluation metric
-    # c) Spot Check Algorithms
-    # d) Compare Algorithms
+    def evaluate_algorithms(self):
+        # 4. Evaluate Algorithms
+        """ This step is about finding a subset of machine learning algorithms that are good at exploiting
+        the structure of your data (e.g. have better than average skill).
+        On a given problem you will likely spend most of your time on this and the previous step
+        until you converge on a set of 3-to-5 well performing machine learning algorithms. """
+        # a) Split-out validation dataset
+        def partition_data():
+            array = self.dataset.values
+            self.x = array[:,0:4]
+            self.y = array[:,4]
+            validation_size = 0.20
+            random_seed = 7
+            self.x_train,self.x_validation,self.y_train,self.y_validation = train_test_split(self.x,self.y,test_size=validation_size,random_state=random_seed)
+        partition_data()
+        # b) Test options and evaluation metric
+        # c) Spot Check Algorithms
+        # d) Compare Algorithms
     # 5. Improve Accuracy
     """ Once you have a shortlist of machine learning algorithms, you need to get the most out of them.
     The line between this and the previous step can blur when a project becomes concrete.

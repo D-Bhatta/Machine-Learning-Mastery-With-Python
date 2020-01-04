@@ -15,7 +15,7 @@ There are 150 instances and 4 attributes.
 2. [x] Data Loading
 3. [x] Data Summarization
 4. [x] Data Visualization
-5. [ ] Partitioning of dataset into Training dataset and Validation dataset
+5. [x] Partitioning of dataset into Training dataset and Validation dataset
 6. [ ] Model Creation
 7. [ ] Model Selection
    - [ ] Create test harness using K-Fold Cross Validation, with scoring set to 'accuracy'
