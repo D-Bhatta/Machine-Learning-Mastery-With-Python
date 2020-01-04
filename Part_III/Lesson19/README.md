@@ -14,7 +14,7 @@ There are 150 instances and 4 attributes.
 1. [x] Data Download
 2. [x] Data Loading
 3. [x] Data Summarization
-4. [ ] Data Visualization
+4. [x] Data Visualization
 5. [ ] Partitioning of dataset into Training dataset and Validation dataset
 6. [ ] Model Creation
 7. [ ] Model Selection

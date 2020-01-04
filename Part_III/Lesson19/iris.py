@@ -13,6 +13,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
+from numpy import array
 # Python Project: Iris Classification
 class iris(object):
     # 1. Prepare Problem: Load dataset and libraries
@@ -23,6 +24,9 @@ class iris(object):
         filename = 'iris.data'
         names = ['sepal-lenght', 'sepal-width', 'petal-length', 'petal-width', 'class']
         self.dataset = read_csv(filename, names=names)
+        self.x = []
+        self.y = []
+        self.x_train, self.y_train, self.x_test, self.y_test = [],[],[],[]
     # 2. Summarize Data
     def summarize_iris_data(self):
         """ This step is about better understanding the data that you have available. This includes
@@ -52,19 +56,40 @@ class iris(object):
         summarize_iris_data_stats() 
         # b) Data visualizations
         def summarize_iris_data_visualtization(): 
-            pass 
+            # box-plot
+            self.dataset.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False) 
+            plt.savefig("box_and_whisker_plot.png", format = 'png')#saves the plot
+            # histogram
+            self.dataset.hist()
+            plt.savefig("histogram_plot.png", format = 'png')#saves the plot
+            # Scatter matrix
+            iris_target = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,       
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,      
+             0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,       
+             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,       
+             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,       
+             2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,       
+             2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]# Targets the iris dataset
+            color_wheel = {1: "#0392cf", 
+                        2: "#7bc043", 
+                        3: "#ee4035"}#colors for each of the classes
+            colors = list(map(lambda x: color_wheel.get(x + 1), iris_target))#map colors to classes
+            scatter_matrix(self.dataset, color=colors)#create the scatter matrix
+            plt.savefig("scatter_matrix.png", format = 'png')#saves the plot
+            print(" Data Visualiztion & analysis\nBox and whisker\n\nSepal length\nWe can see a well balanced dataset. There is no visible skew. The max data point seems to be well above the 75% quartile.\nSepal width\nWe can see some outliers here, above the max point. There is slight skew towards the 75% quartile and, the data is probably skewed to the right.\nPetal length\nNo outliers, but the data is very much skewed towards the 25% quartile. The 75% quartile is much closer to the mean than the 25% quartile. The minimum value is quite far from the mean.\nPetal width\nAgain, the data is very much skewed towards the 25% quartile. The minimum value is quite far from the mean. \nConclusion\nPetal length and width are both on the smaller side. Values in these 2 columns are skewed to the left. Very interesting.\nIn contrast, sepal length and width are much more 'normal'.\n\nHistogram\n\nAs expected, petal length and width are both heavily skewed to the left. You could draw a diagonal line from the left to the right across the Maximas of the petal width data.\nSepal length and width assume a very broken, but still imaginable bell curve.\nOverall, the data seems very interesting.\n\nScatter matrix\n\nThere's a slight correlation between sepal length and sepal width for one of the classes. This is also the case for sepal length and petal length.\nPetal length and width also have a correlation for a part of the data.\nConclusion\nThe data has some slight correlation. ")
         summarize_iris_data_visualtization()
-        
-        
+            
     # 3. Prepare Data
-    """ This step is about preparing the data in such a way that it best exposes the structure of the
-    problem and the relationships between your input attributes with the output variable.
-    Start simple. Revisit this step often and cycle with the next step until you converge on a
-    subset of algorithms and a presentation of the data that results in accurate or accurate-enough
-    models to proceed. """
-    # a) Data Cleaning
-    # b) Feature Selection
-    # c) Data Transforms
+    def prepare_data(self):
+        """ This step is about preparing the data in such a way that it best exposes the structure of the
+        problem and the relationships between your input attributes with the output variable.
+        Start simple. Revisit this step often and cycle with the next step until you converge on a
+        subset of algorithms and a presentation of the data that results in accurate or accurate-enough
+        models to proceed. """
+        # a) Data Cleaning
+        # b) Feature Selection
+        # c) Data Transforms
+        pass
     # 4. Evaluate Algorithms
     """ This step is about finding a subset of machine learning algorithms that are good at exploiting
     the structure of your data (e.g. have better than average skill).
@@ -154,8 +179,31 @@ Iris-versicolor    50
 Iris-virginica     50
 dtype: int64
  We can see that the class distributions are well balanced, with each of the 3 classes comprising a neat third of the dataset.
-To create an accurate model of the data, we must take a good look at 
-the data and create a statistical summary of it. We now know the 
-characteristics of the data and will be able to visualize it for 
-further understanding.
+ Data Visualiztion & analysis
+Box and whisker
+
+Sepal length
+We can see a well balanced dataset. There is no visible skew. The max data point seems to be well above the 75% quartile.
+Sepal width
+We can see some outliers here, above the max point. There is slight skew towards the 75% quartile and, the data is probably skewed to the right.
+Petal length
+No outliers, but the data is very much skewed towards the 25% quartile. The 75% quartile is much closer to the mean than the 25% quartile. The minimum value is quite far from the mean.
+Petal width
+Again, the data is very much skewed towards the 25% quartile. The minimum value is quite far from the mean.
+Conclusion
+Petal length and width are both on the smaller side. Values in these 2 columns are skewed to the left. Very interesting.
+In contrast, sepal length and width are much more 'normal'.
+
+Histogram
+
+As expected, petal length and width are both heavily skewed to the left. You could draw a diagonal line from the left to the right across the Maximas of the petal width data.
+Sepal length and width assume a very broken, but still imaginable bell curve.
+Overall, the data seems very interesting.
+
+Scatter matrix
+
+There's a slight correlation between sepal length and sepal width for one of the classes. This is also the case for sepal length and petal length.
+Petal length and width also have a correlation for a part of the data.
+Conclusion
+The data has some slight correlation.
 """
