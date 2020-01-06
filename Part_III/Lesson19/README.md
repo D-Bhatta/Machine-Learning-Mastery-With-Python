@@ -16,12 +16,12 @@ There are 150 instances and 4 attributes.
 3. [x] Data Summarization
 4. [x] Data Visualization
 5. [x] Partitioning of dataset into Training dataset and Validation dataset
-6. [ ] Model Creation
-7. [ ] Model Selection
-   - [ ] Create test harness using K-Fold Cross Validation, with scoring set to 'accuracy'
-   - [ ] Evaluation of models using test harness
-   - [ ] Summarization, Visualization and Comparison of Results
-   - [ ] Model Selection
+6. [x] Model Creation
+7. [x] Model Selection
+   - [x] Create test harness using K-Fold Cross Validation, with scoring set to 'accuracy'
+   - [x] Evaluation of models using test harness
+   - [x] Summarization, Visualization and Comparison of Results
+   - [x] Model Selection
 8. [ ] Making Predictions using Selected Model
 9. [ ] Summarization of Results
 10. [ ] Saving the Pipelined Project

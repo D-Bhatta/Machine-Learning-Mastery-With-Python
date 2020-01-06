@@ -1,3 +1,7 @@
+# import warnings filter
+from warnings import simplefilter
+# ignore all future warnings
+simplefilter(action='ignore', category=FutureWarning)
 from pandas import read_csv
 from pandas.plotting import scatter_matrix
 from matplotlib import pyplot as plt
@@ -27,6 +31,11 @@ class iris(object):
         self.x = []
         self.y = []
         self.x_train, self.y_train, self.x_validation, self.y_validation = [],[],[],[]
+        # Load Models
+        self.models = []
+        self.results = []
+        self.names = []
+        self.msg = []
     # 2. Summarize Data
     def summarize_iris_data(self):
         """ This step is about better understanding the data that you have available. This includes
@@ -94,9 +103,43 @@ class iris(object):
             random_seed = 7
             self.x_train,self.x_validation,self.y_train,self.y_validation = train_test_split(self.x,self.y,test_size=validation_size,random_state=random_seed)
         partition_data()
-        # b) Test options and evaluation metric
-        # c) Spot Check Algorithms
+        # b) Spot Check Algorithms
+        def create_models():
+            self.models.append(('lr', LogisticRegression()))
+            self.models.append(('lda',LinearDiscriminantAnalysis()))
+            self.models.append(('knn', KNeighborsClassifier()))
+            self.models.append(('cart',DecisionTreeClassifier()))
+            self.models.append(('nb', GaussianNB()))
+            self.models.append(('svm', SVC()))
+        create_models()
+        # c) Evaluate each model in turn
+        def evaluate_using_test_harness():
+            for name,model in self.models:
+                kfold = KFold(n_splits=10, random_state=7)
+                cv_results = cross_val_score(model,self.x_train,self.y_train, cv=kfold, scoring='accuracy')
+                self.results.append(cv_results)
+                self.names.append(name)
+                self.msg.append("{}: {} ({})".format(name,cv_results.mean(),cv_results.std()))
+        evaluate_using_test_harness()
         # d) Compare Algorithms
+        def print_msg():
+            print("\nThe Cross Eval Scores using 10-kfold test harness is:")
+            for i in range(len(self.msg)):
+                print(self.msg[i])
+        print_msg()
+        def plot_results():
+            fig = plt.figure()
+            fig.suptitle('Algorithm Comparision')
+            ax = fig.add_subplot(111)
+            plt.boxplot(self.results)
+            ax.set_xticklabels(self.names)
+            plt.savefig("cross_eval_results_boxplot.png", format='png')
+        plot_results()
+        print("""\nFrom the figure we can see the nearly all the non-linear models reach near 1.00 accuracy.""")
+
+        # e) Model Selection
+        print("""\nSVM and KNN seem to have the highest estimated accuracy scores.""")
+
     # 5. Improve Accuracy
     """ Once you have a shortlist of machine learning algorithms, you need to get the most out of them.
     The line between this and the previous step can blur when a project becomes concrete.
@@ -132,6 +175,7 @@ class iris(object):
 
 iris = iris()
 iris.summarize_iris_data()
+iris.evaluate_algorithms()
 """ output:
 Shape of the dataset(instance,attribute):
 (150, 5)
@@ -204,4 +248,16 @@ There's a slight correlation between sepal length and sepal width for one of the
 Petal length and width also have a correlation for a part of the data.
 Conclusion
 The data has some slight correlation.
+
+The Cross Eval Scores using 10-kfold test harness is:
+lr: 0.9666666666666666 (0.04082482904638632)
+lda: 0.975 (0.03818813079129868)
+knn: 0.9833333333333332 (0.03333333333333335)
+cart: 0.975 (0.03818813079129868)
+nb: 0.975 (0.053359368645273735)
+svm: 0.9916666666666666 (0.025000000000000012)
+
+From the figure we can see the nearly all the non-linear models reach near 1.00 accuracy.
+
+SVM and KNN seem to have the highest estimated accuracy scores.
 """
