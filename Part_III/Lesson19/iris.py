@@ -168,6 +168,14 @@ class iris(object):
         from joblib import dump
         filename = "iris_model.sav"
         dump(self.model,filename)
+        self.predictions = self.model.predict(self.x)
+        self.accuracy = accuracy_score(self.y, self.predictions)
+        self.confusion_matrix = confusion_matrix(self.y,self.predictions)
+        self.report = classification_report(self.y,self.predictions)
+        print('\n\n======Results for entire datset======\n')
+        self.summarize_results()
+    # d) Testing the saved model
+
     """ ### Tips for using the template
 
     - Fast First Pass . Make a first-pass through the project steps as fast as possible. This
@@ -194,6 +202,7 @@ iris.evaluate_algorithms()
 iris.iris_predictions()
 iris.summarize_results()
 iris.finalize_iris_model()
+
 """ output:
 Shape of the dataset(instance,attribute):
 (150, 5)
@@ -296,4 +305,27 @@ Iris-versicolor       0.85      0.92      0.88        12
        accuracy                           0.90        30
       macro avg       0.92      0.91      0.91        30
    weighted avg       0.90      0.90      0.90        30
+
+
+
+======Results for entire datset======
+
+
+Accuracy =  0.9666666666666667
+
+Confusion Matrix:
+ [[50  0  0]
+ [ 0 47  3]
+ [ 0  2 48]]
+
+Classification report:
+                  precision    recall  f1-score   support
+
+    Iris-setosa       1.00      1.00      1.00        50
+Iris-versicolor       0.96      0.94      0.95        50
+ Iris-virginica       0.94      0.96      0.95        50
+
+       accuracy                           0.97       150
+      macro avg       0.97      0.97      0.97       150
+   weighted avg       0.97      0.97      0.97       150
 """
