@@ -41,6 +41,7 @@ class iris(object):
         self.confusion_matrix = []
         self.report = ""
         self.model = ""
+        self.filename = "iris_model.sav"
     # 2. Summarize Data
     def summarize_iris_data(self):
         """ This step is about better understanding the data that you have available. This includes
@@ -166,7 +167,7 @@ class iris(object):
         self.model = KNeighborsClassifier()
         self.model.fit(self.x,self.y)
         from joblib import dump
-        filename = "iris_model.sav"
+        filename = self.filename
         dump(self.model,filename)
         self.predictions = self.model.predict(self.x)
         self.accuracy = accuracy_score(self.y, self.predictions)
@@ -175,7 +176,13 @@ class iris(object):
         print('\n\n======Results for entire datset======\n')
         self.summarize_results()
     # d) Testing the saved model
-
+    def test_saved_model(self):
+        from joblib import load
+        model = load(self.filename)
+        predictions = model.predict(self.x)
+        accuracy = accuracy_score(self.y, predictions)
+        if accuracy >= 0.96:
+            print("\nModel is accurate")
     """ ### Tips for using the template
 
     - Fast First Pass . Make a first-pass through the project steps as fast as possible. This
@@ -202,6 +209,7 @@ iris.evaluate_algorithms()
 iris.iris_predictions()
 iris.summarize_results()
 iris.finalize_iris_model()
+iris.test_saved_model()
 
 """ output:
 Shape of the dataset(instance,attribute):
@@ -328,4 +336,7 @@ Iris-versicolor       0.96      0.94      0.95        50
        accuracy                           0.97       150
       macro avg       0.97      0.97      0.97       150
    weighted avg       0.97      0.97      0.97       150
+
+
+Model is accurate
 """

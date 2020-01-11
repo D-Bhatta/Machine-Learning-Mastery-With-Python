@@ -1,6 +1,7 @@
 import iris as i
 import temp
 from numpy import array
+from sklearn.metrics import accuracy_score
 
 class TestObject(object):
     def test_evaluate_algorithms(self):
@@ -20,3 +21,10 @@ class TestObject(object):
         x_validation = i.iris.x_validation
         y_validation = i.iris.y_validation
         assert (x_validation,y_validation == a_x_validation,a_y_validation), "TEST FAILED: at evaluate_algorithms() -> partition_data(), the dataset wasn't partitioned into x and y validation sets correctly"
+
+    def test_accuracy(self):
+        from joblib import load
+        model = load(i.iris.filename)
+        predictions = model.predict(i.iris.x)
+        accuracy = accuracy_score(i.iris.y, predictions)
+        assert accuracy >= 0.96, "TEST FAILED: Accuracy of saved model is not optimal"
