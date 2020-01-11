@@ -22,8 +22,8 @@ There are 150 instances and 4 attributes.
    - [x] Evaluation of models using test harness
    - [x] Summarization, Visualization and Comparison of Results
    - [x] Model Selection
-8. [ ] Making Predictions using Selected Model
-9. [ ] Summarization of Results
+8. [x] Making Predictions using Selected Model
+9. [x] Summarization of Results
 10. [ ] Saving the Pipelined Project
 11. [ ] Testing the saved model
 

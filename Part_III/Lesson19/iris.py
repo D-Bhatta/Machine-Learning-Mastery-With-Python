@@ -36,6 +36,10 @@ class iris(object):
         self.results = []
         self.names = []
         self.msg = []
+        self.predictions = []
+        self.accuracy = 1
+        self.confusion_matrix = []
+        self.report = ""
     # 2. Summarize Data
     def summarize_iris_data(self):
         """ This step is about better understanding the data that you have available. This includes
@@ -140,18 +144,22 @@ class iris(object):
         # e) Model Selection
         print("""\nSVM and KNN seem to have the highest estimated accuracy scores.""")
 
-    # 5. Improve Accuracy
-    """ Once you have a shortlist of machine learning algorithms, you need to get the most out of them.
-    The line between this and the previous step can blur when a project becomes concrete.
-    There may be a little algorithm tuning in the previous step. And in the case of ensembles, you
-    may bring more than a shortlist of algorithms forward to combine their predictions. """
-    # a) Algorithm Tuning
-    # b) Ensembles
-    # 6. Finalize Model
+    # 5. Finalize Model
     """ Once you have found a model that you believe can make accurate predictions on unseen data,
     you are ready to finalize it. """
     # a) Predictions on validation dataset
-    # b) Create standalone model on entire training dataset
+    def iris_predictions(self):
+        knn = KNeighborsClassifier()
+        knn.fit(self.x_train, self.y_train)
+        self.predictions = knn.predict(self.x_validation)
+        self.accuracy = accuracy_score(self.y_validation,self.predictions)
+        self.confusion_matrix = confusion_matrix(self.y_validation,self.predictions)
+        self.report = classification_report(self.y_validation,self.predictions)
+    # b) Summarize Results
+    def summarize_results(self):
+        print('\nAccuracy = ',self.accuracy)
+        print('\nConfusion Matrix:\n',self.confusion_matrix)
+        print('\nClassification report:\n',self.report)
     # c) Save model for later use
     """ ### Tips for using the template
 
@@ -176,6 +184,8 @@ class iris(object):
 iris = iris()
 iris.summarize_iris_data()
 iris.evaluate_algorithms()
+iris.iris_predictions()
+iris.summarize_results()
 """ output:
 Shape of the dataset(instance,attribute):
 (150, 5)
@@ -260,4 +270,22 @@ svm: 0.9916666666666666 (0.025000000000000012)
 From the figure we can see the nearly all the non-linear models reach near 1.00 accuracy.
 
 SVM and KNN seem to have the highest estimated accuracy scores.
+
+Accuracy =  0.9
+
+Confusion Matrix:
+ [[ 7  0  0]
+ [ 0 11  1]
+ [ 0  2  9]]
+
+Classification report:
+                  precision    recall  f1-score   support
+
+    Iris-setosa       1.00      1.00      1.00         7
+Iris-versicolor       0.85      0.92      0.88        12
+ Iris-virginica       0.90      0.82      0.86        11
+
+       accuracy                           0.90        30
+      macro avg       0.92      0.91      0.91        30
+   weighted avg       0.90      0.90      0.90        30
 """
