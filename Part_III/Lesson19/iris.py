@@ -40,6 +40,7 @@ class iris(object):
         self.accuracy = 1
         self.confusion_matrix = []
         self.report = ""
+        self.model = ""
     # 2. Summarize Data
     def summarize_iris_data(self):
         """ This step is about better understanding the data that you have available. This includes
@@ -161,6 +162,12 @@ class iris(object):
         print('\nConfusion Matrix:\n',self.confusion_matrix)
         print('\nClassification report:\n',self.report)
     # c) Save model for later use
+    def finalize_iris_model(self):
+        self.model = KNeighborsClassifier()
+        self.model.fit(self.x,self.y)
+        from joblib import dump
+        filename = "iris_model.sav"
+        dump(self.model,filename)
     """ ### Tips for using the template
 
     - Fast First Pass . Make a first-pass through the project steps as fast as possible. This
@@ -186,6 +193,7 @@ iris.summarize_iris_data()
 iris.evaluate_algorithms()
 iris.iris_predictions()
 iris.summarize_results()
+iris.finalize_iris_model()
 """ output:
 Shape of the dataset(instance,attribute):
 (150, 5)

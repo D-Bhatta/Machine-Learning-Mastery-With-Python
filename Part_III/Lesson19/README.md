@@ -24,7 +24,7 @@ There are 150 instances and 4 attributes.
    - [x] Model Selection
 8. [x] Making Predictions using Selected Model
 9. [x] Summarization of Results
-10. [ ] Saving the Pipelined Project
+10. [x] Saving the Pipelined Project
 11. [ ] Testing the saved model
 
 ## Project Files
