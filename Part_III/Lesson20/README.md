@@ -11,7 +11,7 @@ There are 506 instances and 14 attributes.
 
 ## Project Steps
 
-1. [ ] Data Download
+1. [x] Data Download
 2. [ ] Data Loading
 3. [ ] Data Analysis
    1. [ ] Descriptive Statistics
