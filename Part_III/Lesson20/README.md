@@ -12,7 +12,7 @@ There are 506 instances and 14 attributes.
 ## Project Steps
 
 1. [x] Data Download
-2. [ ] Data Loading
+2. [x] Data Loading
 3. [ ] Data Analysis
    1. [ ] Descriptive Statistics
 4. [ ] Data Visualization
