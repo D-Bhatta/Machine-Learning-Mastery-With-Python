@@ -14,13 +14,13 @@ There are 506 instances and 14 attributes.
 1. [x] Data Download
 2. [x] Data Loading
 3. [ ] Data Analysis
-   1. [ ] Descriptive Statistics
-4. [ ] Data Visualization
-   1. [ ] Unimodal Data Visualizations
-   2. [ ] Multimodal Data Visualizations
-5. [ ] Partitioning of dataset into Training dataset and Validation dataset
-6. [ ] Model Creation
-7. [ ] Model Selection
+   1. [x] Descriptive Statistics
+   2. [ ] Data Visualization
+      1. [ ] Unimodal Data Visualizations
+      2. [ ] Multimodal Data Visualizations
+4. [ ] Partitioning of dataset into Training dataset and Validation dataset
+5. [ ] Model Creation
+6. [ ] Model Selection
    - [ ] Create test harness using K-Fold Cross Validation, with scoring set to 'Negative Mean Squared Error'
    - [ ] Evaluation of models using test harness
    - [ ] Summarization, Visualization and Comparison of Results
@@ -33,14 +33,14 @@ There are 506 instances and 14 attributes.
    - [ ] Evaluation of models using test harness
    - [ ] Summarization, Visualization and Comparison of Results
    - [ ] Tuning of Ensemble models
-8. [ ] Model Finalization
+7. [ ] Model Finalization
    1. [ ] Model Preparation
    2. [ ] Validation Set transformation
    3. [ ] Summarization, Visualization and Comparison of Results
    4. [ ] Training the model on entire dataset
-9. [ ] Summarization of Results
-10. [ ] Saving the Pipelined Project
-11. [ ] Testing the saved model
+8. [ ] Summarization of Results
+9. [ ] Saving the Pipelined Project
+10. [ ] Testing the saved model
 
 ## Project Files
 
