@@ -13,7 +13,7 @@ There are 506 instances and 14 attributes.
 
 1. [x] Data Download
 2. [x] Data Loading
-3. [ ] Data Analysis
+3. [x] Data Analysis
    1. [x] Descriptive Statistics
    2. [x] Data Visualization
       1. [x] Unimodal Data Visualizations
