@@ -57,6 +57,13 @@ class Boston(object):
             exit(1)
         # Check that the dataset hs been loaded properly
         assert self.dataset.size != 0 , "The data hasn't been loaded correctly"
+        self.array = self.dataset.values
+        self.x = self.array[:,0:13]
+        self.y = self.array[:,13]
+        validation_size = 0.2
+        seed = 7
+        self.x_train, self.x_validation, self.y_train, self.y_validation = train_test_split(self.x,self.y,test_size=validation_size, random_state=seed)
+
     # 2. Summarize Data
     """ This step is about better understanding the data that you have available. This includes
     understanding your data using
