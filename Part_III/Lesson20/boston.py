@@ -262,4 +262,18 @@ LSTAT    0.46 -0.41   0.60 -5.39e-02  0.59 -0.61  0.60 -0.50  4.89e-01  0.54    
 MEDV    -0.39  0.36  -0.48  1.75e-01 -0.43  0.70 -0.38  0.25 -3.82e-01 -0.47    -0.51  0.33  -0.74  1.00
 We can see that many of the attributes have high correlation among them.
             DIS and NOX at 0.77 and RAD and TAX with 0.91 certainly jump out. CHAS seems the least correlated to other attributes.
+
+
+Data Visualization:
+The histogram depicts each of the attributes in a separate histogram.
+I think we can see that almost all of the attbutes except 'RM' are heavily skewed. The data would probably benefit from scaling anf transformation.
+A lot of the attributes might be bimodal.
+The density plot shows a clearer picture of the distributions. Clearly there is a lot of skew and there are a lot of bimodal distributions.
+The box and whisker plots paint a very clear picture of skewness of the data, as well as of the bimodial distributions. 
+
+Correlation:
+We can see a lot of negative and positive correlation in the form of nice and smooth curves in the scatter plot.
+
+The correlation matrix confirms the correlation evident in the scatter plot. DIS seems to be highly correlated with no less than 4 variables. AGE is also correlated, and this dataset would benefit from being standardized and perhaps some PCA.
+
  """
