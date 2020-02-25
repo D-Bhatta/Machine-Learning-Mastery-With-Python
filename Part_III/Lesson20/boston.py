@@ -48,10 +48,10 @@ class Boston(object):
     def __init__(self):
         """ We will be loading the Boston Housing Dataset into a pandas dataframe here, and then load class variables"""
         filename = "housing.data"
-        names = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO','B', 'LSTAT', 'MEDV']
+        self.names = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO','B', 'LSTAT', 'MEDV']
         # Load the dataset into a class data member
         try:
-            self.dataset = read_csv(filename, delim_whitespace=True, names=names)
+            self.dataset = read_csv(filename, delim_whitespace=True, names=self.names)
         except FileNotFoundError:
             lg.error("FIle not found error", exc_info=True)
             exit(1)
@@ -95,7 +95,44 @@ class Boston(object):
         descriptive_statistics()    
         # b) Data visualizations
         def data_visualization():
-            pass
+            """ We will now visaualize our data and try to analyse it and gain a better understanding of the data. """
+            def histogram():
+                self.dataset.hist(sharex=False, sharey=False, xlabelsize=1, ylabelsize=1)
+                #save the image to a file
+                plt.savefig('histogram.png', format='png')
+            def density_plot():
+                self.dataset.plot(kind='density', subplots=True, layout=(4,4), sharex=False, legend=False,fontsize=1)
+                #save the image to a file
+                plt.savefig('density_plot.png', format='png')
+            def box_and_whisker():
+                self.dataset.plot(kind='box', subplots=True, layout=(4,4), sharex=False, sharey=False, fontsize=8)
+                #save the image to a file
+                plt.savefig('box_and_whisker_plot.png', format='png')
+            histogram()
+            density_plot()
+            box_and_whisker()
+            print("\n\nData Visualization:")
+            print("""The histogram depicts each of the attributes in a separate histogram. \nI think we can see that almost all of the attbutes except 'RM' are heavily skewed. The data would probably benefit from scaling anf transformation.\nA lot of the attributes might be bimodal.""")
+            print("""The density plot shows a clearer picture of the distributions. Clearly there is a lot of skew and there are a lot of bimodal distributions. """)
+            print("""The box and whisker plots paint a very clear picture of skewness of the data, as well as of the bimodial distributions. """)
+            def scatter_plot():
+                scatter_matrix(self.dataset)
+                plt.savefig("scatter_plot.png", format='png')
+            def correlation_matrix():
+                fig = plt.figure()
+                ax = fig.add_subplot(111)
+                cax = ax.matshow(self.dataset.corr(), vmin=-1, vmax= 1, interpolation='none')
+                fig.colorbar(cax)
+                ticks = numpy.arange(0,14,1)
+                ax.set_xticks(ticks)
+                ax.set_yticks(ticks)
+                ax.set_xticklabels(self.names)
+                ax.set_yticklabels(self.names)
+                plt.savefig('correlation_matrix.png', format='png')
+            scatter_plot()
+            correlation_matrix()
+            print(""" \nCorrelation:\nWe can see a lot of negative and positive correlation in the form of nice and smooth curves in the scatter plot. """)
+            print(""" \nThe correlation matrix confirms the correlation evident in the scatter plot. DIS seems to be highly correlated with no less than 4 variables. AGE is also correlated, and this dataset would benefit from being standardized and perhaps some PCA. """)
         data_visualization()
     # 3. Prepare Data
     """ This step is about preparing the data in such a way that it best exposes the structure of the

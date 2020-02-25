@@ -15,9 +15,9 @@ There are 506 instances and 14 attributes.
 2. [x] Data Loading
 3. [ ] Data Analysis
    1. [x] Descriptive Statistics
-   2. [ ] Data Visualization
-      1. [ ] Unimodal Data Visualizations
-      2. [ ] Multimodal Data Visualizations
+   2. [x] Data Visualization
+      1. [x] Unimodal Data Visualizations
+      2. [x] Multimodal Data Visualizations
 4. [ ] Partitioning of dataset into Training dataset and Validation dataset
 5. [ ] Model Creation
 6. [ ] Model Selection
