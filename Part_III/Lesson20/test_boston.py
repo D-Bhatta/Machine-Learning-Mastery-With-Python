@@ -2,6 +2,7 @@ import pandas
 import numpy
 
 import boston
+import os
 B = boston.Boston()
 
 class TestObject(object):
@@ -14,3 +15,9 @@ class TestObject(object):
         assert B.dataset.shape == shape, " TEST FAILED: Failed to verify dataset shape"
         assert str(B.dataset.dtypes) == dtypes, " TEST FAILED: Failed to verify dataset dtypes string"
         assert B.dataset.describe().reset_index().values.tolist() == description, " TEST FAILED: Failed to verify dataset description"
+    def test_data_visualizations(self):
+        assert os.path.isfile("box_and_whisker_plot.png") == True, " TEST FAILED: Failed to verify file path: box_and_whisker_plot.png"
+        assert os.path.isfile("correlation_matrix.png") == True, " TEST FAILED: Failed to verify file path: correlation_matrix.png"
+        assert os.path.isfile("density_plot.png") == True, " TEST FAILED: Failed to verify file path: density_plot.png"
+        assert os.path.isfile("histogram.png") == True, " TEST FAILED: Failed to verify file path: histogram.png"
+        assert os.path.isfile("scatter_plot.png") == True, " TEST FAILED: Failed to verify file path: scatter_plot.png"
