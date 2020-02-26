@@ -21,3 +21,10 @@ class TestObject(object):
         assert os.path.isfile("density_plot.png") == True, " TEST FAILED: Failed to verify file path: density_plot.png"
         assert os.path.isfile("histogram.png") == True, " TEST FAILED: Failed to verify file path: histogram.png"
         assert os.path.isfile("scatter_plot.png") == True, " TEST FAILED: Failed to verify file path: scatter_plot.png"
+    def test_partioning_dataset(self):
+        assert len(B.x) == 506, " TEST FAILED: Failed to verify size of: X dataset"
+        assert len(B.y) == 506, " TEST FAILED: Failed to verify size of: Y dataset"
+        assert len(B.x_train) == 404, " TEST FAILED: Failed to verify size of: x_train dataset"
+        assert len(B.x_validation) == 102, " TEST FAILED: Failed to verify size of: x_validation dataset"
+        assert len(B.y_train) == 404, " TEST FAILED: Failed to verify size of: y_train dataset"
+        assert len(B.y_validation) == 102, " TEST FAILED: Failed to verify size of: y_validation dataset"
