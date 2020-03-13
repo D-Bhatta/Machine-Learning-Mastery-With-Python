@@ -141,25 +141,26 @@ class Boston(object):
             print(""" \nCorrelation:\nWe can see a lot of negative and positive correlation in the form of nice and smooth curves in the scatter plot. """)
             print(""" \nThe correlation matrix confirms the correlation evident in the scatter plot. DIS seems to be highly correlated with no less than 4 variables. AGE is also correlated, and this dataset would benefit from being standardized and perhaps some PCA. """)
         data_visualization()
-    # 3. Prepare Data
-    """ This step is about preparing the data in such a way that it best exposes the structure of the
-    problem and the relationships between your input attributes with the output variable.
-    Start simple. Revisit this step often and cycle with the next step until you converge on a
-    subset of algorithms and a presentation of the data that results in accurate or accurate-enough
-    models to proceed. """
-    # a) Data Cleaning
-    # b) Feature Selection
-    # c) Data Transforms
     # 4. Evaluate Algorithms
     """ This step is about finding a subset of machine learning algorithms that are good at exploiting
     the structure of your data (e.g. have better than average skill).
     On a given problem you will likely spend most of your time on this and the previous step
     until you converge on a set of 3-to-5 well performing machine learning algorithms. """
-    # a) Split-out validation dataset
-    # b) Test options and evaluation metric
-    # c) Spot Check Algorithms
-    # d) Compare Algorithms
-    # 5. Improve Accuracy
+    def evaluate_algorithms(self):
+        """ Evaluate models before building one """
+        # Model creation
+        models = []
+        models.append(('lr',LinearRegression()))
+        models.append(('lasso', Lasso()))
+        models.append(('en', ElasticNet()))
+        models.append(('cart', DecisionTreeRegressor()))
+        models.append(('svm', SVR()))
+        models.append(('knn', KNeighborsRegressor()))
+        
+        # b) Test options and evaluation metric
+        # c) Spot Check Algorithms
+        # d) Compare Algorithms
+        # 5. Improve Accuracy
     """ Once you have a shortlist of machine learning algorithms, you need to get the most out of them.
     The line between this and the previous step can blur when a project becomes concrete.
     There may be a little algorithm tuning in the previous step. And in the case of ensembles, you

@@ -19,7 +19,7 @@ There are 506 instances and 14 attributes.
       1. [x] Unimodal Data Visualizations
       2. [x] Multimodal Data Visualizations
 4. [x] Partitioning of dataset into Training dataset and Validation dataset
-5. [ ] Model Creation
+5. [x] Model Creation
 6. [ ] Model Selection
    - [ ] Create test harness using K-Fold Cross Validation, with scoring set to 'Negative Mean Squared Error'
    - [ ] Evaluation of models using test harness
