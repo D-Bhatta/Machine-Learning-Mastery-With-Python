@@ -249,6 +249,63 @@ class Boston(object):
         plt.bar(x=params_labels, height=means, tick_label=params_labels)
         plt.savefig("knn_params_results.png", format="png")
         print("We can see from the figure that k = 3 had the lowest error.")
+        # Create ensemble pipelines
+        ensembles = []
+        ensembles.append(('ScaledAR', Pipeline([('Scaler', StandardScaler()), ('AB', AdaBoostRegressor())])))
+        ensembles.append(('ScaledGBM', Pipeline([('SCaler', StandardScaler()), ('GBM', GradientBoostingRegressor())])))
+        ensembles.append(('ScakedRF', Pipeline([('Scaler', StandardScaler()), ('RF', RandomForestRegressor())])))
+        ensembles.append(('ScaledET', Pipeline([('Scaler', StandardScaler()), ('ET', ExtraTreesRegressor())])))
+        # evaluate using kfold test harness
+        results = []
+        names = []
+        messages = []
+        for name, model in ensembles:
+            kfold = KFold(n_splits=num_folds, random_state=seed)
+            cv_results = cross_val_score(model, self.x_train, self.y_train, cv=kfold, scoring=scoring)
+            results.append(cv_results)
+            names.append(name)
+            message = "{}: {} ({})".format(name,cv_results.mean(), cv_results.std())
+            messages.append(message)
+        print(*messages, sep="\n")
+        # visualizing the results
+        fig = plt.figure()
+        fig.suptitle("Scaled Ensemble Algorithms Comparision")
+        ax = fig.add_subplot(111)
+        plt.boxplot(results)
+        ax.set_xticklabels(names)
+        plt.savefig("ensemble_algorithms_spotcheck.png", format="png")
+        print("We can see that GBM has a lsightly better mean score than ET, and ET has a tighter bound. We shall proceed with GBM and aim to tune it further.")
+        
+        # tune scaled GBM
+        scaler = StandardScaler().fit(self.x_train)
+        rescaled_x = scaler.transform(self.x_train)
+        estimators = numpy.array(list(range(50,401,50)))
+        param_grid = dict(n_estimators=estimators)
+        model = GradientBoostingRegressor(random_state=seed)
+        kfold = KFold(n_splits=num_folds, random_state=seed)
+        grid = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=kfold)
+        grid_result = grid.fit(rescaled_x, self.y_train)
+
+        best = "Best: {} using {}".format(grid_result.best_score_, grid_result.best_params_)
+        messages = []
+        messages.append(best)
+        means = grid_result.cv_results_['mean_test_score']
+        stds = grid_result.cv_results_['std_test_score']
+        params = grid_result.cv_results_['params']
+        for mean,stdev,param in zip(means, stds, params):
+            message = "{} ({}) with: {}".format(mean, stdev, param)
+            messages.append(message)
+        print("Results are:\n")
+        print(*messages, sep="\n")
+
+        # visualize the results
+        params_labels = estimators
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        fig.suptitle("GBM tuning for estimators")
+        plt.bar(x=params_labels, height=means, tick_label=params_labels)
+        plt.savefig("gbm_params_results.png", format="png")
+        print("The best performance was for n_estimators = 400. Thus, we will be using GBM and expect a low error rate.")
 
         # 5. Improve Accuracy
     """ Once you have a shortlist of machine learning algorithms, you need to get the most out of them.

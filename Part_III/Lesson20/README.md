@@ -20,7 +20,7 @@ There are 506 instances and 14 attributes.
       2. [x] Multimodal Data Visualizations
 4. [x] Partitioning of dataset into Training dataset and Validation dataset
 5. [x] Model Creation
-6. [ ] Model Selection
+6. [x] Model Selection
    - [x] Create test harness using K-Fold Cross Validation, with scoring set to 'Negative Mean Squared Error'
    - [x] Evaluation of models using test harness
    - [x] Summarization, Visualization and Comparison of Results
@@ -29,10 +29,10 @@ There are 506 instances and 14 attributes.
    - [x] Summarization, Visualization and Comparison of Results
    - [x] Model Selection
    - [x] Model tuning
-   - [ ] Creation of Ensembles
-   - [ ] Evaluation of models using test harness
-   - [ ] Summarization, Visualization and Comparison of Results
-   - [ ] Tuning of Ensemble models
+   - [x] Creation of Ensembles
+   - [x] Evaluation of models using test harness
+   - [x] Summarization, Visualization and Comparison of Results
+   - [x] Tuning of Ensemble models
 7. [ ] Model Finalization
    1. [ ] Model Preparation
    2. [ ] Validation Set transformation
