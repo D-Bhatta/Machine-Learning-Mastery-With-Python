@@ -158,8 +158,98 @@ class Boston(object):
         models.append(('knn', KNeighborsRegressor()))
         
         # b) Test options and evaluation metric
+        # we will use 10-k cross validation
+        seed = 7
+        num_folds = 10
+        scoring = 'neg_mean_squared_error'
         # c) Spot Check Algorithms
+        results = []
+        names = []
+        messages = []
+        for name, model in models:
+            kfold = KFold(n_splits=num_folds,random_state=seed)
+            cv_results = cross_val_score(model, self.x_train, self.y_train, cv=kfold, scoring=scoring)
+            results.append(cv_results)
+            names.append(name)
+            messages.append("{}:{}({})".format(name, cv_results.mean(),cv_results.std()))
+        
         # d) Compare Algorithms
+        print("Name\tMean\t\tStd")
+        print(*messages, sep="\n")
+        print("We can see that Linear Regression has the lowest error, followed by lasso and CART. To understand this further, we will visualize the results.")
+        fig = plt.figure()
+        fig.suptitle('Algorithm Comparision')
+        ax = fig.add_subplot(111)
+        plt.boxplot(results)
+        ax.set_xticklabels(names)
+        plt.savefig('spotchecking_results_boxplot.png', format="png")
+        print("As we can see from the boxplot, lr has the lowest error, and it seems to be evenly distributed. CART does have 2 outliers, but oherwise it performs second-best.")
+        print("CART does seem to have a tighter distribution against others. I think we need to standardize the data to get a better picture.")
+
+        # Standardization
+        # Create pipelines
+        pipelines = []
+        pipelines.append(('ScaledLR', Pipeline([('Scaler', StandardScaler()), ('LR', LinearRegression())])))
+        pipelines.append(('ScaledEN', Pipeline([('Scaler', StandardScaler()), ('EN', ElasticNet())])))
+        pipelines.append(('ScaledLASSO', Pipeline([('Scaler', StandardScaler()), ('LASSO', Lasso())])))
+        pipelines.append(('ScaledCART', Pipeline([('Scaler', StandardScaler()), ('CART', DecisionTreeRegressor())])))
+        pipelines.append(('ScaledSVR', Pipeline([('Scaler', StandardScaler()), ('SVR', SVR())])))
+        pipelines.append(('ScaledKNN', Pipeline([('Scaler', StandardScaler()), ('KNN', KNeighborsRegressor())])))
+        results = []
+        names = []
+        messages = []
+        for name, model in pipelines:
+            kfold = KFold(n_splits=num_folds, random_state=seed)
+            cv_results = cross_val_score(model, self.x_train, self.y_train, cv=kfold, scoring=scoring)
+            results.append(cv_results)
+            names.append(name)
+            message = "{} : {} ({})".format(name, cv_results.mean(), cv_results.std())
+            messages.append(message)
+        print("Results of spotchecking models on different algorithms.")
+        print("Name\t\tMean\t\tStd")
+        print(*messages, sep="\n")
+        print("We can see that scaling the data improved the performance for KNN. It performed the best out of all models.")
+        #Visualising the results of spot-checking models on scaled data
+        fig =  plt.figure()
+        fig.suptitle("Scaled algorithm comparision")
+        ax = fig.add_subplot(111)
+        plt.boxplot(results)
+        ax.set_xticklabels(names)
+        plt.savefig("scaled_boxplot_results.png", format="png")
+        print("From the boxplot, KNN emerges strongly as a good candidate with the lowest score and a tight bound.")
+        # Tuning the parameters
+        # setting the k value of knn to an arbitrary range from 1 to 21, all odd
+        # scaling the data
+        scaler = StandardScaler().fit(self.x_train)
+        rescaled_x = scaler.transform(self.x_train)
+        k_values = numpy.array([i for i in range(1,22,2)])
+        param_grid = dict(n_neighbors=k_values)
+        model = KNeighborsRegressor()
+        kfold = KFold(n_splits=num_folds, random_state=seed)
+        grid = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=kfold)
+        grid_result = grid.fit(rescaled_x, self.y_train)
+        messages = []
+        best = "Best: {} using {}".format(grid_result.best_score_, grid_result.best_params_)
+        messages.append(best)
+        means = grid_result.cv_results_['mean_test_score']
+        stds = grid_result.cv_results_['std_test_score']
+        params = grid_result.cv_results_['params']
+        for mean, stdev, param in zip(means,stds, params):
+            message = "{} ({}) with:{}".format(mean,stdev,param)
+            messages.append(message)
+        
+        print("Results are:\n")
+        print(*messages, sep="\n")
+
+        # visualize the results
+        params_labels = k_values
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        fig.suptitle("KNN Tuning for k")
+        plt.bar(x=params_labels, height=means, tick_label=params_labels)
+        plt.savefig("knn_params_results.png", format="png")
+        print("We can see from the figure that k = 3 had the lowest error.")
+
         # 5. Improve Accuracy
     """ Once you have a shortlist of machine learning algorithms, you need to get the most out of them.
     The line between this and the previous step can blur when a project becomes concrete.
@@ -195,8 +285,8 @@ class Boston(object):
 
 
 boston = Boston()
-boston.analyze_data()
-
+#boston.analyze_data()
+boston.evaluate_algorithms()
 """ Output:
 The shape of the dataset is (506, 14). We can see that there are 506 instances or rows and 11 attributes or columns.
 The datatpes of the attributes are:
