@@ -358,28 +358,9 @@ class Boston(object):
             print("\nModel is accurate")
 
 
-    """ ### Tips for using the template
-
-    - Fast First Pass . Make a first-pass through the project steps as fast as possible. This
-    will give you confidence that you have all the parts that you need and a baseline from
-    which to improve.
-    - Cycles . The process in not linear but cyclic. You will loop between steps, and probably
-    spend most of your time in tight loops between steps 3-4 or 3-4-5 until you achieve a level
-    of accuracy that is sufficient or you run out of time.
-    - Attempt Every Step . It is easy to skip steps, especially if you are not confident or
-    familiar with the tasks of that step. Try and do something at each step in the process,
-    even if it does not improve accuracy. You can always build upon it later. Don’t skip steps,
-    just reduce their contribution.
-    - Ratchet Accuracy . The goal of the project is model accuracy. Every step contributes
-    towards this goal. Treat changes that you make as experiments that increase accuracy as
-    the golden path in the process and reorganize other steps around them. Accuracy is a
-    ratchet that can only move in one direction (better, not worse).
-    - Adapt As Needed . Modify the steps as you need on a project, especially as you become
-    more experienced with the template. Blur the edges of tasks, such as steps 4-5 to best
-    serve model accuracy. """
 boston = Boston()
-# boston.analyze_data()
-# boston.evaluate_algorithms()
+boston.analyze_data()
+boston.evaluate_algorithms()
 boston.model_finalization()
 boston.test_saved_model()
 """ Output:
@@ -468,5 +449,63 @@ Correlation:
 We can see a lot of negative and positive correlation in the form of nice and smooth curves in the scatter plot.
 
 The correlation matrix confirms the correlation evident in the scatter plot. DIS seems to be highly correlated with no less than 4 variables. AGE is also correlated, and this dataset would benefit from being standardized and perhaps some PCA.
+Name    Mean            Std
+lr:-21.379855726678706(9.414263656984769)
+lasso:-26.423561108409654(11.651109915777914)
+en:-27.50225935066171(12.3050222641127)
+cart:-24.710840243902442(10.322473181739754)
+svm:-85.51834183929131(31.99479823184288)
+knn:-41.89648839024391(13.901688149849864)
+We can see that Linear Regression has the lowest error, followed by lasso and CART. To understand this further, we will visualize the results.
+As we can see from the boxplot, lr has the lowest error, and it seems to be evenly distributed. CART does have 2 outliers, but oherwise it performs second-best.
+CART does seem to have a tighter distribution against others. I think we need to standardize the data to get a better picture.
+Results of spotchecking models on different algorithms.
+Name            Mean            Std
+ScaledLR : -21.379855726678564 (9.414263656984708)
+ScaledEN : -27.932372158135514 (10.587490490139405)
+ScaledLASSO : -26.607313557676616 (8.978761485890262)
+ScaledCART : -25.763937804878047 (14.516292461177029)
+ScaledSVR : -29.633085500303213 (17.009186052351556)
+ScaledKNN : -20.107620487804876 (12.376949150820472)
+We can see that scaling the data improved the performance for KNN. It performed the best out of all models.
+From the boxplot, KNN emerges strongly as a good candidate with the lowest score and a tight bound.
+C:\ProgramData\Anaconda3\lib\site-packages\sklearn\model_selection\_search.py:813: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
+  DeprecationWarning)
+Results are:
 
- """
+Best: -18.172136963696367 using {'n_neighbors': 3}
+-20.208663366336634 (15.029651571426534) with:{'n_neighbors': 1}
+-18.172136963696367 (12.950569939457809) with:{'n_neighbors': 3}
+-20.131163366336633 (12.203696929311104) with:{'n_neighbors': 5}
+-20.575845120226305 (12.345886317622917) with:{'n_neighbors': 7}
+-20.368263659699302 (11.621737918716054) with:{'n_neighbors': 9}
+-21.009204238605676 (11.610012219014179) with:{'n_neighbors': 11}
+-21.15180854180092 (11.943317892509251) with:{'n_neighbors': 13}
+-21.557399669966998 (11.536338523667055) with:{'n_neighbors': 15}
+-22.789938161636233 (11.56686063504654) with:{'n_neighbors': 17}
+-23.871872960149197 (11.340388662548046) with:{'n_neighbors': 19}
+-24.361362115803416 (11.9147857079963) with:{'n_neighbors': 21}
+We can see from the figure that k = 3 had the lowest error.
+ScaledAR: -15.570136781522445 (7.226508004326689)
+ScaledGBM: -10.386519807726451 (4.584945303632313)
+ScakedRF: -14.107018420731709 (6.93372242026274)
+ScaledET: -10.68477058536585 (5.263157650864247)
+We can see that GBM has a lsightly better mean score than ET, and ET has a tighter bound. We shall proceed with GBM and aim to tune it further.
+C:\ProgramData\Anaconda3\lib\site-packages\sklearn\model_selection\_search.py:813: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
+  DeprecationWarning)
+Results are:
+
+Best: -9.3538696600702 using {'n_estimators': 400}
+-10.812166656847484 (4.724393636557874) with: {'n_estimators': 50}
+-10.040856533581554 (4.441757611922483) with: {'n_estimators': 100}
+-9.694044578095989 (4.275652713871717) with: {'n_estimators': 150}
+-9.539480800040016 (4.270152744263775) with: {'n_estimators': 200}
+-9.449041675378322 (4.261930249819678) with: {'n_estimators': 250}
+-9.426909455124738 (4.271398576035022) with: {'n_estimators': 300}
+-9.366779386673732 (4.251668915728572) with: {'n_estimators': 350}
+-9.3538696600702 (4.26581630222825) with: {'n_estimators': 400}
+The best performance was for n_estimators = 400. Thus, we will be using GBM and expect a low error rate.
+The predictons for the validation set are: 11.878916447820348 in terms of mean squared error
+The predictons for the entire set are: 0.2618166772801396 in terms of mean squared error
+
+Model is accurate"""
