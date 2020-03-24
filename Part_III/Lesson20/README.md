@@ -33,14 +33,14 @@ There are 506 instances and 14 attributes.
    - [x] Evaluation of models using test harness
    - [x] Summarization, Visualization and Comparison of Results
    - [x] Tuning of Ensemble models
-7. [ ] Model Finalization
-   1. [ ] Model Preparation
-   2. [ ] Validation Set transformation
-   3. [ ] Summarization, Visualization and Comparison of Results
-   4. [ ] Training the model on entire dataset
-8. [ ] Summarization of Results
-9. [ ] Saving the Pipelined Project
-10. [ ] Testing the saved model
+7. [x] Model Finalization
+   1. [x] Model Preparation
+   2. [x] Validation Set transformation
+   3. [x] Summarization, Visualization and Comparison of Results
+   4. [x] Training the model on entire dataset
+8. [x] Summarization of Results
+9. [x] Saving the Pipelined Project
+10. [x] Testing the saved model
 
 ## Project Files
 

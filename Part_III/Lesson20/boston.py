@@ -63,6 +63,11 @@ class Boston(object):
         validation_size = 0.2
         seed = 7
         self.x_train, self.x_validation, self.y_train, self.y_validation = train_test_split(self.x,self.y,test_size=validation_size, random_state=seed)
+        self.predictions = []
+        self.rescaled_x = []
+        self.filename = "boston.data"
+        self.model = "Empty"
+        self.rescaledValidation_x = "Empty"
 
     # 2. Summarize Data
     """ This step is about better understanding the data that you have available. This includes
@@ -317,9 +322,42 @@ class Boston(object):
     # 6. Finalize Model
     """ Once you have found a model that you believe can make accurate predictions on unseen data,
     you are ready to finalize it. """
-    # a) Predictions on validation dataset
-    # b) Create standalone model on entire training dataset
-    # c) Save model for later use
+    def model_finalization(self):
+        seed = 7
+        scaler = StandardScaler().fit(self.x_train)
+        rescaled_x = scaler.transform(self.x_train)
+        model = GradientBoostingRegressor(random_state=seed, n_estimators=400)
+        model.fit(rescaled_x, self.y_train)
+        
+        # a) Predictions on validation dataset
+        # transform the validation dataset
+        rescaledValidation_x = scaler.transform(self.x_validation)
+        predictions = model.predict(rescaledValidation_x)
+        print("The predictons for the validation set are: {} in terms of mean squared error".format(mean_squared_error(self.y_validation, predictions)))
+        # b) Create standalone model on entire training dataset
+        self.model = GradientBoostingRegressor(random_state=seed, n_estimators=400)
+        scaler = StandardScaler().fit(self.x)
+        self.rescaled_x = scaler.transform(self.x)
+        self.rescaledValidation_x = scaler.transform(self.x_validation)
+        self.model.fit(self.rescaled_x, self.y)
+        self.predictions = self.model.predict(self.rescaledValidation_x)
+        print("The predictons for the entire set are: {} in terms of mean squared error".format(mean_squared_error(self.y_validation, self.predictions)))
+        # c) Save model for later use
+
+        from joblib import dump
+        filename = self.filename
+        dump(self.model, filename)
+    
+    def test_saved_model(self):
+        from joblib import load
+        model = load(self.filename)
+        predictions = model.predict(self.rescaledValidation_x)
+        error = mean_squared_error(self.y_validation, self.predictions)
+        error_test = mean_squared_error(self.y_validation, predictions)
+        if error - error_test == 0:
+            print("\nModel is accurate")
+
+
     """ ### Tips for using the template
 
     - Fast First Pass . Make a first-pass through the project steps as fast as possible. This
@@ -339,11 +377,11 @@ class Boston(object):
     - Adapt As Needed . Modify the steps as you need on a project, especially as you become
     more experienced with the template. Blur the edges of tasks, such as steps 4-5 to best
     serve model accuracy. """
-
-
 boston = Boston()
-#boston.analyze_data()
-boston.evaluate_algorithms()
+# boston.analyze_data()
+# boston.evaluate_algorithms()
+boston.model_finalization()
+boston.test_saved_model()
 """ Output:
 The shape of the dataset is (506, 14). We can see that there are 506 instances or rows and 11 attributes or columns.
 The datatpes of the attributes are:
