@@ -357,7 +357,7 @@ class Boston(object):
         if error - error_test == 0:
             print("\nModel is accurate")
 
-
+# pylint: disable=anomalous-backslash-in-string
 boston = Boston()
 boston.analyze_data()
 boston.evaluate_algorithms()
