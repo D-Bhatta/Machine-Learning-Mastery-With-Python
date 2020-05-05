@@ -41,7 +41,12 @@ class Sonar(object):
         # b) Load dataset
         url = 'sonar/sonar.all-data.csv'
         self.data = read_csv(url, header=None)
-    
+        self.array = self.data.values
+        self.x = self.array[:,0:60].astype(float)
+        self.y = self.array[:,60]
+        validation_size = 0.20
+        seed = 15
+        self.x_train, self.x_validation, self.y_train, self.y_validation = train_test_split(self.x, self.y, test_size=validation_size, random_state=seed)
     
     # 2. Summarize Data
     """ This step is about better understanding the data that you have available. This includes

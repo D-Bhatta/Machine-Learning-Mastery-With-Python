@@ -6,7 +6,6 @@ This repository hosts the code, tests, documentation and pipelined model for the
 
 The repository is hosted at [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Connectionist+Bench+(Sonar,+Mines+vs.+Rocks))The task is to train a network to discriminate between sonar signals bounced off a metal cylinder and those bounced off a roughly cylindrical rock.
 
-
 The data set is multivariate and contains ratio(numerical) and one nominal class data.
 There are 208 instances and 60 attributes.
 
@@ -19,7 +18,7 @@ There are 208 instances and 60 attributes.
    2. [x] Data Visualization
       1. [x] Unimodal Data Visualizations
       2. [x] Multimodal Data Visualizations
-4. [ ] Partitioning of dataset into Training dataset and Validation dataset
+4. [x] Partitioning of dataset into Training dataset and Validation dataset
 5. [ ] Model Creation
 6. [ ] Model Selection
    - [ ] Create test harness using K-Fold Cross Validation, with scoring set to 'accuracy'
