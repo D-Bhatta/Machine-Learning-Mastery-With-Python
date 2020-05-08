@@ -1,6 +1,7 @@
 # Machine-Learning-Mastery-With-Python
 
 Initiated Project:24th August 2019
+Finished Project: 8th May 2020
 
 This is a repository of all activities as I learn from the book "Machine Learning Mastery With Python by Jason Brownlee"
 
