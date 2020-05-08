@@ -104,37 +104,138 @@ class Sonar(object):
         """
         self.unimodal_viz()
         self.multimodal_viz()
-    # 3. Prepare Data
-    """ This step is about preparing the data in such a way that it best exposes the structure of the
-    problem and the relationships between your input attributes with the output variable.
-    Start simple. Revisit this step often and cycle with the next step until you converge on a
-    subset of algorithms and a presentation of the data that results in accurate or accurate-enough
-    models to proceed. """
-    # a) Data Cleaning
-    # b) Feature Selection
-    # c) Data Transforms
-    # 4. Evaluate Algorithms
     """ This step is about finding a subset of machine learning algorithms that are good at exploiting
     the structure of your data (e.g. have better than average skill).
     On a given problem you will likely spend most of your time on this and the previous step
     until you converge on a set of 3-to-5 well performing machine learning algorithms. """
     # a) Split-out validation dataset
-    # b) Test options and evaluation metric
-    # c) Spot Check Algorithms
-    # d) Compare Algorithms
-    # 5. Improve Accuracy
-    """ Once you have a shortlist of machine learning algorithms, you need to get the most out of them.
-    The line between this and the previous step can blur when a project becomes concrete.
-    There may be a little algorithm tuning in the previous step. And in the case of ensembles, you
-    may bring more than a shortlist of algorithms forward to combine their predictions. """
-    # a) Algorithm Tuning
-    # b) Ensembles
+    # done
+    def evaluate_algorithms(self):
+        # b) Test options and evaluation metric
+        num_folds = 10
+        seed = 7
+        scoring = 'accuracy'
+        # c) Spot Check Algorithms
+        # TODO: undo below comment
+        models = []
+        models.append(('LR', LogisticRegression()))
+        models.append(('LDA', LinearDiscriminantAnalysis()))
+        models.append(('Knn', KNeighborsClassifier()))
+        models.append(('Cart', DecisionTreeClassifier()))
+        models.append(('nb', GaussianNB()))
+        models.append(('svm', SVC()))
+        results = []
+        names = []
+        messages = []
+        for name, model in models:
+            kfold = KFold(n_splits=num_folds, random_state=seed)
+            cv_results = cross_val_score(model, self.x_train, self.y_train, cv=kfold, scoring = scoring)
+            results.append(cv_results)
+            names.append(name)
+            msg = '{} : {} ({})'.format(name, cv_results.mean(), cv_results.std())
+            messages.append(msg)
+        print(*messages, sep='\n')
+        # Visualize the results
+        fig = plt.figure()
+        fig.suptitle('Algorithms Comparision 1')
+        ax = fig.add_subplot(111)
+        plt.boxplot(results)
+        ax.set_xticklabels(names)
+        plt.savefig('Algorithms_Comparision1.png', format='png')
+        """ Data needs to be standardized """
+        # TODO: undo below comment
+        pipelines = []
+        pipelines.append(('ScaledLR', Pipeline([('Scaler', StandardScaler()), ('LR', LogisticRegression())])))
+        pipelines.append(('ScaledLDA', Pipeline([('Scaler', StandardScaler()), ('LDA', LinearDiscriminantAnalysis())])))
+        pipelines.append(('ScaledKNN', Pipeline([('Scaler', StandardScaler()), ('KNN', KNeighborsClassifier())])))
+        pipelines.append(('ScaledCart', Pipeline([('Scaler', StandardScaler()), ('Cart', DecisionTreeClassifier())])))
+        pipelines.append(('ScaledNB', Pipeline([('Scaler', StandardScaler()), ('NB', GaussianNB())])))
+        pipelines.append(('ScaledSVM', Pipeline([('Scaler', StandardScaler()), ('SVM', SVC())])))
+        results = []
+        names = []
+        messages = []
+        for name, model in pipelines:
+            kfold = KFold(n_splits=num_folds, random_state=seed)
+            cv_results = cross_val_score(model, self.x_train, self.y_train, cv=kfold, scoring = scoring)
+            results.append(cv_results)
+            names.append(name)
+            msg = '{} : {} ({})'.format(name, cv_results.mean(), cv_results.std())
+            messages.append(msg)
+        print(*messages, sep='\n')
+        # Visualize the results
+        fig = plt.figure()
+        fig.suptitle('Algorithms Comparision 2')
+        ax = fig.add_subplot(111)
+        plt.boxplot(results)
+        ax.set_xticklabels(names)
+        plt.savefig('Algorithms_Comparision2.png', format='png')
+        # d) Compare Algorithms
+        # 5. Improve Accuracy
+        """ Once you have a shortlist of machine learning algorithms, you need to get the most out of them.
+        The line between this and the previous step can blur when a project becomes concrete.
+        There may be a little algorithm tuning in the previous step. And in the case of ensembles, you
+        may bring more than a shortlist of algorithms forward to combine their predictions. """
+        # a) Algorithm Tuning: svm, and since svm performs well, also knn
+        #  tuning knn
+        # TODO: undo below comment
+        scaler = StandardScaler().fit(self.x_train)
+        rescaled_x = scaler.transform(self.x_train)
+        neighbors = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29]
+        param_grid = dict(n_neighbors=neighbors)
+        model = KNeighborsClassifier()
+        kfold = KFold(n_splits=num_folds, random_state=seed)
+        grid = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=kfold)
+        grid_result = grid.fit(rescaled_x, self.y_train)
+        print("Best: {} using {}".format( grid_result.best_score_, grid_result.best_params_))
+        means = grid_result.cv_results_['mean_test_score']
+        stde = grid_result.cv_results_['std_test_score']
+        params = grid_result.cv_results_['params']
+        for mean, stdev, param in zip(means, stde, params):
+            print("{} ({}) with {}".format(mean, stdev, param))
+        #tuning svm
+        # TODO: undo below comment
+        scaler = StandardScaler().fit(self.x_train)
+        rescaled_x = scaler.transform(self.x_train)
+        c_values = [0.1, 0.3, 0.5, 0.7, 0.9, 1, 1.3, 1.5, 1.7 ,1.9, 2]
+        kernel_values = ['linear', 'poly', 'rbf', 'sigmoid']
+        param_grid = dict(C=c_values, kernel=kernel_values)
+        model = SVC()
+        kfold = KFold(n_splits=num_folds, random_state=seed)
+        grid = GridSearchCV(estimator=model, param_grid=param_grid, scoring=scoring, cv=kfold)
+        grid_result = grid.fit(rescaled_x, self.y_train)
+        print("Best: {} using {}".format( grid_result.best_score_, grid_result.best_params_))
+        means = grid_result.cv_results_['mean_test_score']
+        stde = grid_result.cv_results_['std_test_score']
+        params = grid_result.cv_results_['params']
+        for mean, stdev, param in zip(means, stde, params):
+            print("{} ({}) with {}".format(mean, stdev, param))
+        
+        # b) Ensembles
+        ensembles = []
+        ensembles.append(('ADB', AdaBoostClassifier()))
+        ensembles.append(('GBM', GradientBoostingClassifier()))
+        ensembles.append(('RF', RandomForestClassifier()))
+        ensembles.append(('ET', ExtraTreesClassifier()))
+        results = []
+        names = []
+        messages = []
+        for name, model in ensembles:
+            kfold = KFold(n_splits=num_folds, random_state=seed)
+            cv_results = cross_val_score(model, self.x_train, self.y_train, scoring=scoring, cv=kfold)
+            results.append(cv_results)
+            names.append(name)
+            msg = "{}:  {} ({})".format(name, cv_results.mean(), cv_results.std())
+            messages.append(msg)
+        print(*messages, sep="\n")
+        # visualize results
+        fig = plt.figure()
+        fig.suptitle('Algorithms Comparision 3')
+        ax = fig.add_subplot(111)
+        plt.boxplot(results)
+        ax.set_xticklabels(names)
+        plt.savefig('Algorithms_Comparision_3.png', format='png')
     # 6. Finalize Model
-    """ Once you have found a model that you believe can make accurate predictions on unseen data,
-    you are ready to finalize it. """
-    # a) Predictions on validation dataset
-    # b) Create standalone model on entire training dataset
-    # c) Save model for later use
+    
 """ ### Tips for using the template
 
 - Fast First Pass . Make a first-pass through the project steps as fast as possible. This
@@ -157,4 +258,5 @@ serve model accuracy. """
 
 sonar = Sonar()
 # sonar.descriptive_statistics(prn=True)
-sonar.data_visualizetions()
+# sonar.data_visualizetions()
+# sonar.evaluate_algorithms()
